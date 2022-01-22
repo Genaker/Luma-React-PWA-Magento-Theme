@@ -9,7 +9,6 @@
     "config": {
         "sort-packages": true
     },
-    "version": "100.4.3",
     "require": {
         "php": "~7.3.0||~7.4.0",
         "magenxcommerce/framework": "103.0.*",
