@@ -17,8 +17,5 @@
         "files": [
             "registration.php"
         ]
-    },
-    "replace": {
-        "magento/theme-frontend-luma": "*"
     }
 }
