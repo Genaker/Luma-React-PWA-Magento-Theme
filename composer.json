@@ -1,0 +1,27 @@
+{
+    "name": "genaker/theme-react-luma",
+    "description": "N/A",
+    "type": "magento2-theme",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "version": "100.4.3",
+    "require": {
+        "php": "~7.3.0||~7.4.0",
+        "magenxcommerce/framework": "103.0.*",
+        "magenxcommerce/theme-frontend-blank": "100.4.*",
+        "genaker/magento-reactjs": "17.*"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ]
+    },
+    "replace": {
+        "magento/theme-frontend-luma": "*"
+    }
+}
