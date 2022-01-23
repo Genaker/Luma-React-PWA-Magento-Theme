@@ -38,12 +38,24 @@
         </div>
     </div>
 </div>
+
 <?php endif; ?>
+
+<?php
+
+if ($_product->getTypeId() !== 'simple') {
+
+echo "<h2 style='color:red;'>Notice: For now we don't have puplicly released configurable produt support. Contact me to enable this feature (yegorshytikov@gmail.com) </h2>";
+} else {
+?>
 
 <script>
 document.querySelector('#product-addtocart-button').disabled = false;
-
 </script>
+
+<?php
+}
+?>
 
 <script type="text/x-magento-init">
     {
