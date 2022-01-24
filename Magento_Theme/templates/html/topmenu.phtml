@@ -25,6 +25,13 @@ $_menuHtml = $block->getHtml('level-top', 'submenu', $columnsLimit)
 
 <script>
 
+document.querySelector("#maincontent").addEventListener('click', (e) => {
+        const nav = document.querySelector('.sections.nav-sections');
+        if(nav.style.display == "block"){
+                nav.style.display = "none";
+        }}
+);
+
 document.querySelectorAll('.level0.category-item').forEach(
     e => {
         console.log(e); 
