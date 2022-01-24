@@ -47,11 +47,11 @@ And we are not using Magento's broken "section" architecture!
         </div>
     <?php else: ?>
         <?php $scriptString = <<<script
-            require(['jquery'], function ($) {
+            /*require(['jquery'], function ($) {
                 $('a.action.showcart').on('click', function() {
                     $(document.body).trigger('processStart');
                 });
-            });
+            });*/
 script;
         ?>
         <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false); ?>
@@ -73,7 +73,29 @@ script;
 
 <script>
 
-  fetch(BASE_URL + 'customer/section/load/?section=', {
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return null;
+}
+
+
+async function formKey(){
+if (getCookie('form_key') !== null)
+document.querySelectorAll('input[name=form_key]').forEach((e) => {console.log(e); e.value = getCookie('form_key')});
+}
+
+fetch(BASE_URL + 'customer/section/load/?section=', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,6 +103,7 @@ script;
                 }
             })
                 .then(async(res) =>{console.log(await res.json())})
+                .then(formKey());
 
 document.querySelector('.action.showcart').addEventListener('mouseenter', 
 (e) => {document.querySelector('.block.block-minicart').style.display = 'block'});
