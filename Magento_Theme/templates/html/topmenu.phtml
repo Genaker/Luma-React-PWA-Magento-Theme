@@ -13,6 +13,16 @@
 $columnsLimit = $block->getColumnsLimit() ?: 0;
 $_menuHtml = $block->getHtml('level-top', 'submenu', $columnsLimit)
 ?>
+<style>
+.sections.nav-sections {
+    display: none;
+    z-index: 999;
+    position: absolute;
+    top: 80px;
+    left: 0;
+}
+</style>
+
 <script>
 
 document.querySelectorAll('.level0.category-item').forEach(
@@ -32,14 +42,14 @@ const nav = document.querySelector('.sections.nav-sections');
 
 console.log(nav.style.position);
 
-if (nav.style.position === "fixed" || nav.style.position === ""){
-        nav.style.position = "static";
+if (nav.style.display === "none" || nav.style.display === "") {
+        nav.style.display = "block";
 } else {
-        nav.style.position = "fixed";
+        nav.style.display = "none";
 }
+
 return false;
-}
-)
+})
 
 </script>
 
