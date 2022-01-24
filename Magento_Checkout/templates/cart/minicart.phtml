@@ -37,7 +37,10 @@
                 "parentClass":"active",
                 "buttons":[]}}'>
             <div id="minicart-content-wrapper" data-bind="scope: 'minicart_content'">
-                <div class="feature"> Mini Cart component is not relesed to the public yet! <br>Contact me to enable this feature (yegorshytikov@gmail.com) </div>
+                <div class="feature"> Mini Cart component is not relesed to the public yet! <br>Contact me to enable this feature (yegorshytikov@gmail.com)
+<br>
+And we are not using Magento's broken "section" architecture!
+ </div>
                 <!-- ko template: getTemplate() --><!-- /ko -->
             </div>
             <?= $block->getChildHtml('minicart.addons') ?>
@@ -69,6 +72,16 @@ script;
     </script>
 
 <script>
+
+  fetch(BASE_URL + 'customer/section/load/?section=', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+                .then(async(res) =>{console.log(await res.json())})
+
 document.querySelector('.action.showcart').addEventListener('mouseenter', 
 (e) => {document.querySelector('.block.block-minicart').style.display = 'block'});
 
