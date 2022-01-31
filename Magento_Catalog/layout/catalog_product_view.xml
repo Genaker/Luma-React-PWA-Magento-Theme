@@ -6,6 +6,10 @@
  */
 -->
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <!-- Remove Adobes garbage gallery -->
+        <remove src="mage/gallery/gallery.css"/>
+    </head>
     <body>
         <move element="page.main.title" destination="product.info.main" before="-"/>
         <move element="product.info.stock.sku" destination="product.info.price" after="product.price.final"/>
