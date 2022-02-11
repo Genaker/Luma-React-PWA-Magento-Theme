@@ -1,0 +1,71 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Product list toolbar
+ *
+ * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+ */
+?>
+<div class="toolbar-sorter sorter">
+    <label class="sorter-label" for="sorter"><?= $block->escapeHtml(__('Sort By')) ?></label>
+    <select id="sorter" data-role="sorter" class="sorter-options" onchange="location = this.value;">
+    <?php
+                parse_str($_SERVER['QUERY_STRING'], $query);
+    ?>
+        <?php foreach ($block->getAvailableOrders() as $_key => $_order) :?>
+            <?php 
+                // position IS DEFAULT 
+                if ($_key !== 'position'){
+                $query['product_list_order'] = $block->escapeHtmlAttr($_key);
+                } else {
+                unset($query['product_list_order']);
+                }
+                $url = trim(strtok($_SERVER["REQUEST_URI"], '?') . '?' .  http_build_query($query), '?');
+            ?>
+            <option value="<?= $url ?>"
+                <?php if ($block->isOrderCurrent($_key)) :?>
+                    selected="selected"
+                <?php endif; ?>
+                >
+                <?= $block->escapeHtml(__($_order)) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+    <?php 
+    unset($query);
+    parse_str($_SERVER['QUERY_STRING'], $query); ?>
+    <?php if ($block->getCurrentDirection() == 'desc') :?>
+        <a title="<?= $block->escapeHtmlAttr(__('Set Ascending Direction')) ?>"
+           class="action sorter-action sort-desc"
+           data-role="direction-switcher"
+           <?php
+                 if(isset($query['product_list_dir']))
+                 unset($query['product_list_dir']);
+                 $url = trim(strtok($_SERVER["REQUEST_URI"], '?') . '?' .  http_build_query($query), '?');
+           ?>
+           data-url="<?= $url?>"
+           href="<?= $url ?>"
+           data-value="asc">
+            <span><?= $block->escapeHtml(__('Set Ascending Direction')) ?></span>
+        </a>
+    <?php else :?>
+        <a title="<?= $block->escapeHtmlAttr(__('Set Descending Direction')) ?>"
+           class="action sorter-action sort-asc"
+           data-role="direction-switcher"
+           <?php
+                  $query['product_list_dir'] = 'desc';
+                  $url = trim(strtok($_SERVER["REQUEST_URI"], '?') . '?' .  http_build_query($query), '?');
+           ?>
+           data-url="<?= $url ?>"
+           href="<?= $url ?>"
+           data-value="desc">
+            <span><?= $block->escapeHtml(__('Set Descending Direction')) ?></span>
+        </a>
+    <?php endif; ?>
+</div>
+

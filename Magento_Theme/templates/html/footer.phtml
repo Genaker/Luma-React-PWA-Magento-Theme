@@ -1,0 +1,25 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<style>
+.block-promo-wrapper.block-promo-hp{
+display:none !important;
+}
+#root h1{
+font-size: 8rem;
+}
+</style>
+
+<div class="footer-container">
+    <div class="footer">
+        <?= $block->getChildHtml() ?>
+        <p class="bugs"><?= $block->escapeHtml(__('Help Us Keep Magento Healthy')) ?> - <a
+            href="http://www.magentocommerce.com/bug-tracking"
+            target="_blank"><strong><?= $block->escapeHtml(__('Report All Bugs')) ?></strong></a>
+        </p>
+        <address><?= $block->escapeHtml($block->getCopyright()) ?></address>
+    </div>
+</div>

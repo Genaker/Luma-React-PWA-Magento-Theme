@@ -1,0 +1,37 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Product list toolbar
+ *
+ * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+ */
+
+parse_str($_SERVER['QUERY_STRING'], $query);
+?>
+<div class="field limiter">
+    <label class="label" for="limiter">
+        <span><?= $block->escapeHtml(__('Show')) ?></span>
+    </label>
+    <div class="control">
+        <select id="limiter" data-role="limiter"  onchange="location = this.value;" class="limiter-options">
+            <?php foreach ($block->getAvailableLimit() as $_key => $_limit) :?>
+                <?php
+                        $query['product_list_limit'] = $block->escapeHtmlAttr($_key);
+                        $url = trim(strtok($_SERVER["REQUEST_URI"], '?') . '?' .  http_build_query($query), '?');
+                    ?>
+                <option value="<?= $url ?>"
+                    <?php if ($block->isLimitCurrent($_key)) :?>
+                        selected="selected"
+                    <?php endif ?>>
+                    <?= $block->escapeHtml($_limit) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <span class="limiter-text"><?= $block->escapeHtml(__('per page')) ?></span>
+</div>

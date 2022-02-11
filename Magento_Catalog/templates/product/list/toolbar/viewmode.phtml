@@ -1,0 +1,51 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Product list toolbar
+ *
+ * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+ */
+?>
+<?php if ($block->isEnabledViewSwitcher()) :?>
+    <div class="modes">
+        <?php $_modes = $block->getModes(); 
+               parse_str($_SERVER['QUERY_STRING'], $query);
+        ?>
+        <?php if ($_modes && count($_modes) > 1) :?>
+            <strong class="modes-label" id="modes-label"><?= $block->escapeHtml(__('View as')) ?></strong>
+            <?php foreach ($block->getModes() as $_code => $_label) :?>
+                <?php if ($block->isModeActive($_code)) :?>
+                    <strong title="<?= $block->escapeHtmlAttr($_label) ?>"
+                            class="modes-mode active mode-<?= $block->escapeHtmlAttr(strtolower($_code)) ?>"
+                            data-value="<?= $block->escapeHtmlAttr(strtolower($_code)) ?>">
+                        <span><?= $block->escapeHtml($_label) ?></span>
+                    </strong>
+                <?php else :?>
+                    <?php
+                                    // Default mode is GRID
+                                    if (strtolower($_code) === 'grid'){
+                                        unset($query['product_list_mode']);
+                                    } else {
+                                      $query['product_list_mode'] = $block->escapeHtmlAttr(strtolower($_code));
+                                    }
+                                      $url = trim(strtok($_SERVER["REQUEST_URI"], '?') . '?' .  http_build_query($query), '?'); 
+                        ?>
+                    <a class="modes-mode mode-<?= $block->escapeHtmlAttr(strtolower($_code)) ?>"
+                       title="<?= $block->escapeHtmlAttr($_label) ?>"
+                       href="<?= $url ?>"
+                       data-role="mode-switcher"
+                       data-value="<?= $block->escapeHtmlAttr(strtolower($_code)) ?>"
+                       id="mode-<?= $block->escapeHtmlAttr(strtolower($_code)) ?>"
+                       aria-labelledby="modes-label mode-<?= $block->escapeHtmlAttr(strtolower($_code)) ?>">
+                        <span><?= $block->escapeHtml($_label) ?></span>
+                    </a>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
