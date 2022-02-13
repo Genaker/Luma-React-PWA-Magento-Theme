@@ -45,8 +45,8 @@ $mainImageData = $mainImage ?
 
 <?php
 if (class_exists('Mage')){
-$desctopImage = \Mage::imageResizeUrl($mainImageData, 700, 700, 'p', 95, 'media/');
-$mobileImage = \Mage::imageResizeUrl($mainImageData, 350, 350, 'p', 95, 'media/');
+$desctopImage = \Mage::imageResizeUrl($mainImageData, 700, 700, 'p', 85, 'media/');
+$mobileImage = \Mage::imageResizeUrl($mainImageData, 350, 350, 'p', 85, 'media/');
 } else {
     $desctopImage = $mainImageData;
     $mobileImage = $mainImageData;
