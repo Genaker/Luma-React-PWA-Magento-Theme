@@ -8,7 +8,7 @@ Blazing-Fast  Default Magento Luma theme on ReactJS UI components PWA features a
 
 We made big improvements in the LCP metrics on Mobile. Now this theme even faster than before.
 
-![image](https://user-images.githubusercontent.com/9213670/153733086-287d3b08-5b7e-4ba9-ad9a-76be0ffb92ef.png)
+![image](https://user-images.githubusercontent.com/9213670/153733227-56f839b8-42bc-4b4c-986d-c98ea916cbca.png)
 
 
 # Installation 
