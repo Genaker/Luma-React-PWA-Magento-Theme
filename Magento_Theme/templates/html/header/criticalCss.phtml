@@ -52,8 +52,7 @@ if (window.innerWidth < 768) {
 
 <style type="text/css">
 <?php //echo $criticalCssViewModel->getCriticalCssData() ?>
-
-
+//Critical CSS
 @media only screen and (max-width: 768px) {
     .catalog-product-view .product.media {
         -ms-flex-order: -1;
@@ -116,6 +115,87 @@ if (window.innerWidth < 768) {
 
     .modes {
         display: none;
+    }
+
+    <?php //Home page ?>
+
+    .column.main .block:last-child {
+        margin-bottom: 0;
+    }
+
+    .block-static-block.widget {
+        margin-bottom: 20px;
+    }
+
+    .widget {
+        clear: both;
+    }
+
+    .blocks-promo {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    .gear-main .content,
+    .home-main .content,
+    .new-main .content,
+    .sale-main .content,
+    .training-main .content {
+        top: 20px;
+        right: 0;
+        width: 65%;
+    }
+
+    .block-promo .content {
+        padding: 15px 20px 20px;
+    }
+
+    .widget .block-promo img {
+        min-height: 468px !important;
+        max-width: none;
+    }
+
+    .block-promo-wrapper.block-promo-hp {
+        display: none;
+    }
+
+    .gear-main .content,
+    .home-main .content,
+    .new-main .content,
+    .sale-main .content,
+    .training-main .content {
+        top: 20px;
+        right: 0;
+        width: 65%;
+    }
+
+    .block-promo .content {
+        padding: 15px 20px 20px;
+    }
+
+    .collection-eco .content,
+    .collection-performance .content,
+    .gear-equipment .content,
+    .gear-main .content,
+    .home-eco .content,
+    .home-main .content,
+    .home-performance .content,
+    .new-eco .content,
+    .new-main .content,
+    .sale-main .content,
+    .sale-women .content,
+    .training-erin .content,
+    .training-main .content {
+        background-color: rgba(255, 255, 255, .9);
+    }
+
+    .block-promo .content {
+        display: block;
+        box-sizing: border-box;
+        position: absolute;
+        z-index: 1;
+        overflow: hidden;
+        padding: 25px 35px 35px;
     }
 
 }
