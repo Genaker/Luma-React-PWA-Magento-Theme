@@ -12,7 +12,7 @@
         <remove src="fonts/opensans/regular/opensans-400.woff2"/>
         <remove src="fonts/opensans/semibold/opensans-600.woff2"/>
         <remove src="fonts/opensans/bold/opensans-700.woff2"/>
-        <font src="fonts/Luma-Icons.woff2"/>
+        <remove src="fonts/Luma-Icons.woff2"/>
         <remove src="css/print.css"/>
     </head>
 </page>
