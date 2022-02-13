@@ -36,10 +36,26 @@ $mainImageData = $mainImage ?
 </div>
 -->
 
+<style>
+@media only screen and (max-width: 768px){
+.breadcrumbs {
+    display: block;
+}}
+</style>
+
+<?php
+if (class_exists('Mage')){
+$desctopImage = \Mage::imageResizeUrl($mainImageData, 700, 700, 'p', 95, 'media/');
+$mobileImage = \Mage::imageResizeUrl($mainImageData, 350, 350, 'p', 95, 'media/');
+} else {
+    $desctopImage = $mainImageData;
+    $mobileImage = $mainImageData;
+}
+?>
 <picture>   
-    <source srcset="<?= /* @noEscape */ \Mage::imageResizeUrl($mainImageData, 700, 700, 'p', 95, 'media/') ?>" media="(min-width: 768px)">
-    <source srcset="<?= /* @noEscape */ \Mage::imageResizeUrl($mainImageData, 350, 350, 'p', 95, 'media/') ?>" media="(min-width: 414px)">
-    <img width="100%" height="100%" class="gallery-placeholder__image image_full"  alt="main product photo"  src="<?= /* @noEscape */ \Mage::imageResizeUrl($mainImageData, 350, 350, 'p', 75, 'media/') ?>" > 
+    <source srcset="<?= $desctopImage  ?>" media="(min-width: 768px)">
+    <source srcset="<?= $mobileImage  ?>" media="(min-width: 414px)">
+    <img width="100%" height="100%" class="gallery-placeholder__image image_full"  alt="main product photo"  src="<?= $mobileImage ?>" > 
 </picture> 
 
 </div>
