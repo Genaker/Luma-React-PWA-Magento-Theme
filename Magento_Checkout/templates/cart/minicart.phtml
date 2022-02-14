@@ -93,9 +93,11 @@ script;
                 
                 const cartQTY = document.querySelector('.counter.qty');
                 const cartQTYNumber = document.querySelector('span.counter-number');
-                cartQTY.classList.remove('empty');
-                cartQTYNumber.innerHTML= res.cart.summary_count;
-                console.log(res.cart.summary_count)
+                if (true || res.cart.summary_count > 0) {
+                    cartQTY.classList.remove('empty');
+                    cartQTYNumber.innerHTML= res.cart.summary_count;
+                    console.log(res.cart.summary_count)
+                }
                 const showCart = document.querySelector('.action.showcart');
                 const closeCart = document.querySelector('#btn-minicart-close');
                 showCart.removeEventListener('mouseenter', ShowCart);
