@@ -9,44 +9,27 @@
 ?>
 
 <div data-block="minicart" class="minicart-wrapper">
-    <a class="action showcart" href="<?= $block->escapeUrl($block->getShoppingCartUrl()) ?>"
-       data-bind="scope: 'minicart_content'">
+    <a class="action showcart" href="<?= $block->escapeUrl($block->getShoppingCartUrl()) ?>">
         <span class="text"><?= $block->escapeHtml(__('My Cart')) ?></span>
-        <span class="counter qty empty"
-              data-bind="css: { empty: !!getCartParam('summary_count') == false && !isLoading() },
-               blockLoader: isLoading">
-            <span class="counter-number"><!-- ko text: getCartParam('summary_count') --><!-- /ko --></span>
-            <span class="counter-label">
-            <!-- ko if: getCartParam('summary_count') -->
-                <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
-                <!-- ko i18n: 'items' --><!-- /ko -->
-            <!-- /ko -->
+        <span class="counter qty empty">
+            <span class="counter-number">
+
             </span>
         </span>
     </a>
     <?php if ($block->getIsNeedToDisplaySideBar()):?>
-        <div class="block block-minicart"
-             data-role="dropdownDialog"
-             data-mage-init='{"dropdownDialog":{
-                "appendTo":"[data-block=minicart]",
-                "triggerTarget":".showcart",
-                "timeout": "2000",
-                "closeOnMouseLeave": false,
-                "closeOnEscape": true,
-                "triggerClass":"active",
-                "parentClass":"active",
-                "buttons":[]}}'>
-            <div id="minicart-content-wrapper" data-bind="scope: 'minicart_content'">
-                <div class="feature"> Mini Cart component is not relesed to the public yet! <br>Contact me to enable this feature (yegorshytikov@gmail.com)
-<br>
-And we are not using Magento's broken "section" architecture!
- </div>
-                <!-- ko template: getTemplate() --><!-- /ko -->
+    <div class="block block-minicart" data-role="dropdownDialog">
+        <div id="minicart-content-wrapper">
+            <div class="feature"> Mini Cart component is not released to the public yet! <br>Contact me to enable this
+                feature (yegorshytikov@gmail.com)
+                <br>
+                And we are not using Magento's broken "section" architecture!
             </div>
-            <?= $block->getChildHtml('minicart.addons') ?>
         </div>
+        <?= $block->getChildHtml('minicart.addons') ?>
+    </div>
     <?php else: ?>
-        <?php $scriptString = <<<script
+    <?php $scriptString = <<<script
             /*require(['jquery'], function ($) {
                 $('a.action.showcart').on('click', function() {
                     $(document.body).trigger('processStart');
@@ -54,15 +37,12 @@ And we are not using Magento's broken "section" architecture!
             });*/
 script;
         ?>
-        <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false); ?>
+    <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false); ?>
     <?php endif ?>
     <?= /* @noEscape */ $secureRenderer->renderTag('script', [], 'window.checkout = ' .
      /* @noEscape */ $block->getSerializedConfig(), false); ?>
     <script type="text/x-magento-init">
-    {
-        "[data-block='minicart']": {
-            "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
-        },
+        {
         "*": {
             "Magento_Ui/js/block-loader": "<?= $block->escapeJs(
                 $block->escapeUrl($block->getViewFileUrl('images/loader-1.gif'))
@@ -71,45 +51,75 @@ script;
     }
     </script>
 
-<script>
-
-function getCookie(cname) {
-  let name = cname + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(';');
-  for(let i = 0; i <ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
+    <script>
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return null;
     }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
+
+    async function formKey() {
+        if (getCookie('form_key') !== null)
+            document.querySelectorAll('input[name=form_key]').forEach((e) => {
+                console.log(e);
+                e.value = getCookie('form_key')
+            });
     }
-  }
-  return null;
-}
+
+    fetch(BASE_URL + 'customer/section/load/?section=', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(async (res) => {
+            res = await res.json();
+            console.log(res)
+            if (res.hasOwnProperty('cart') && res.cart.hasOwnProperty('html')){
+                const cart = document.querySelector('#minicart-content-wrapper');
+                cart.innerHTML = '';
+                cart.insertAdjacentHTML("afterbegin", res.cart.html);
+                
+                const cartQTY = document.querySelector('.counter.qty');
+                const cartQTYNumber = document.querySelector('span.counter-number');
+                cartQTY.classList.remove('empty');
+                cartQTYNumber.innerHTML= res.cart.summary_count;
+                console.log(res.cart.summary_count)
+                const showCart = document.querySelector('.action.showcart');
+                const closeCart = document.querySelector('#btn-minicart-close');
+                showCart.removeEventListener('mouseenter', ShowCart);
+                showCart.removeEventListener('mouseleave', ShowCart);
+                showCart.addEventListener('click', (e) => {e.preventDefault(); ShowCart()});
+                if(closeCart !== null)
+                closeCart.addEventListener('click', HideCart);
+
+            } else {
+                const showCart =document.querySelector('.action.showcart');
+                ShowCart.addEventListener('mouseenter', ShowCart);
+                ShowCart.addEventListener('mouseleave', HideCart);
+            }
+        })
+        .then(formKey());
+
+    function ShowCart(){
+        document.querySelector('.block.block-minicart').style.display = 'block'
+    }
+    function HideCart(){
+        document.querySelector('.block.block-minicart').style.display = 'none'
+    }
 
 
-async function formKey(){
-if (getCookie('form_key') !== null)
-document.querySelectorAll('input[name=form_key]').forEach((e) => {console.log(e); e.value = getCookie('form_key')});
-}
-
-fetch(BASE_URL + 'customer/section/load/?section=', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-                .then(async(res) =>{console.log(await res.json())})
-                .then(formKey());
-
-document.querySelector('.action.showcart').addEventListener('mouseenter', 
-(e) => {document.querySelector('.block.block-minicart').style.display = 'block'});
-
-document.querySelector('.action.showcart').addEventListener('mouseleave', 
-(e) => {document.querySelector('.block.block-minicart').style.display = 'none'});
-
-</script>
+    </script>
 </div>
+
