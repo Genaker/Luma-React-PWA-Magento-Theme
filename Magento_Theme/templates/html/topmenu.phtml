@@ -11,54 +11,127 @@
  */
 
 $columnsLimit = $block->getColumnsLimit() ?: 0;
-$_menuHtml = $block->getHtml('level-top', 'submenu', $columnsLimit)
+$_menuHtml = $block->getHtml('level-top', 'submenu', $columnsLimit);
 ?>
 <style>
-.sections.nav-sections {
-    display: none;
-    z-index: 999;
-    position: absolute;
-    top: 80px;
-    left: 0;
+@media only screen and (max-width: 768px) {
+    .sections.nav-sections {
+        display: none;
+        z-index: 999;
+        position: absolute;
+        top: 80px;
+        left: 0;
+    }
+
+    ul.level0.submenu {
+        display: none;
+    }
+
+    li.level0.category-item.has-active.level-top.parent > ul.level0.submenu
+    {
+        display: block;
+    }
 }
+
+.aloading {
+  animation-name: color-change;
+  animation-duration: 4s;
+}
+
+@keyframes color-change {
+  from {color: red;}
+  to {color: yellow;}
+}
+
 </style>
 
 <script>
-
 document.querySelector("#maincontent").addEventListener('click', (e) => {
-        const nav = document.querySelector('.sections.nav-sections');
-        if(nav.style.display == "block"){
-                nav.style.display = "none";
-        }}
-);
-
-document.querySelectorAll('.level0.category-item').forEach(
-    e => {
-        console.log(e); 
-        e.addEventListener('mouseenter', e => { m = e.target.querySelector('.submenu');
-        document.querySelectorAll('.submenu').forEach((e)=>{console.log(e);
-            e.addEventListener('mouseleave', e => { e.target.style.display='none'; return false});
-            e.style.display='none'});
-        if (m !== null) m.style.display = "block"; });
-    }
-    );
-
-document.querySelector('.action.nav-toggle').addEventListener('click', e => {
-
-const nav = document.querySelector('.sections.nav-sections');
-
-console.log(nav.style.position);
-
-if (nav.style.display === "none" || nav.style.display === "") {
-        nav.style.display = "block";
-} else {
+    const nav = document.querySelector('.sections.nav-sections');
+    if (nav.style.display === "block") {
         nav.style.display = "none";
+    }
+});
+
+document.isMobile = false;
+const windowSize = () => {
+    if(window.innerWidth < 768){
+        const nav = document.querySelector('.sections.nav-sections');
+        nav.classList.add('mobile');
+        document.isMobile = true;
+    } else {
+        document.isMobile = false;
+    }
+    return document.isMobile;
 }
 
-return false;
-})
+windowSize();
 
+document.querySelectorAll('ul.submenu .category-item').forEach((e) => {
+            e.addEventListener('click', (e) => {
+                if(windowSize()){
+                    e.currentTarget.classList.add('active');
+                    e.currentTarget.querySelector('span').classList.add('aloading');
+                    e.stopPropagation();}
+                })
+            }
+);
+
+document.querySelectorAll(".level0.category-item.level-top.parent").forEach((e) => {
+            e.addEventListener('click', (e) => {
+                    if (!windowSize()) return true;
+                    e.preventDefault();
+                    const sub = e.currentTarget.querySelector('ul.submenu');
+                    //console.log(typeof  sub.style.display);
+                    const style = getComputedStyle(sub); 
+                    if (style.display === "block") {
+                        sub.style.display = "none";
+                    } else {
+                        sub.style.display = "block";
+                    }
+                    return true;
+                })
+            }
+        );
+
+        document.querySelectorAll('.level0.category-item').forEach(
+            e => {
+                e.addEventListener('mouseenter', e => {
+
+                    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                    ///Menu on mobile acts wierd. closes submenu insead of open page 
+                    if (!isMobile) {
+                        m = e.target.querySelector('.submenu');
+                        document.querySelectorAll('.submenu').forEach((e) => {
+                            e.addEventListener('mouseleave', e => {
+                                e.target.style.display = 'none';
+                                return false
+                            });
+                            e.style.display = 'none'
+                        });
+                        if (m !== null) m.style.display = "block";
+                    }
+
+                });
+            }
+        );
+
+        document.querySelector('.action.nav-toggle').addEventListener('click', e => {
+
+            const nav = document.querySelector('.sections.nav-sections');
+
+            console.log(nav.style.position);
+
+            if (nav.style.display === "none" || nav.style.display === "") {
+                nav.style.display = "block";
+            } else {
+                nav.style.display = "none";
+            }
+
+            return false;
+        })
 </script>
+
 
 <nav class="navigation" data-action="navigation">
     <ul data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
