@@ -18,6 +18,13 @@ We made big improvements in the LCP metrics on Mobile. Now this theme even faste
  bin/magento config:set --scope="default" "design/theme/theme_id" 4 #whatever id you have
 ```
 
+# Donation 
+Magento 2 Super Fast Rect Luma them is free and Open Source comparing to other paid solutions. 
+
+You can donate to support our contributors: 
+
+https://www.paypal.com/paypalme/my/profile
+
 # Dependencies:
 
 Magento React Theme uses Magento React integration extension (https://github.com/Genaker/reactmagento2/) as a dependency. Extension will be added automaticaly if to install via Composer.
