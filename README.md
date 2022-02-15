@@ -4,7 +4,8 @@
 
 Blazing-Fast  Default Magento Luma theme on ReactJS UI components PWA features and better performance 
 
-# After the Consultation with Erwin Hofman 
+# Performace improvements
+After the Consultation with Erwin Hofman 
 
 We made big improvements in the LCP metrics on Mobile. Now this theme even faster than before.
 
@@ -23,7 +24,7 @@ Magento 2 Super Fast Rect Luma them is free and Open Source comparing to other p
 
 You can donate to support our contributors: 
 
-https://www.paypal.com/paypalme/my/profile
+https://paypal.me/magentasoftware?country.x=US&locale.x=en_US
 
 # Dependencies:
 
