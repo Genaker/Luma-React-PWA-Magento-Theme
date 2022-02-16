@@ -18,6 +18,18 @@ We made big improvements in the LCP metrics on Mobile. Now this theme even faste
  mysql -e "select * from theme"
  bin/magento config:set --scope="default" "design/theme/theme_id" 4 #whatever id you have
 ```
+or go to admin : 
+
+Content -> Design -> Configuration
+
+Apply theme:
+
+![image](https://user-images.githubusercontent.com/9213670/154371384-2abd5712-380e-44ad-8e67-b259eb2d6f42.png)
+
+Theme info:
+![image](https://user-images.githubusercontent.com/9213670/154369973-b36f8110-fdfc-4f03-9f1b-9891e0a6cb9d.png)
+
+clear the cache. 
 
 # Donation 
 Magento 2 Super Fast Rect Luma them is free and Open Source comparing to other paid solutions. 
