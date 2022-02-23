@@ -13,7 +13,9 @@
 ?>
 
 <?php if ($block->canShowBlock()) : ?>
+
     <div class="block filter" id="layered-filter-block" data-mage-init='
+    <?php /*
     {
         "collapsible":
         {
@@ -26,7 +28,8 @@
                 "element": "body"
             }
         }
-    }'>
+    }*/ ?>
+    '>
         <?php $filtered = count($block->getLayer()->getState()->getFilters()) ?>
         <div class="block-title filter-title" data-count="<?= /* @noEscape */ $filtered ?>">
             <strong data-role="title"><?= $block->escapeHtml(__('Shop By')); ?></strong>
@@ -77,4 +80,11 @@
             <?php endif; ?>
         </div>
     </div>
+    <script>
+        document.querySelector(".sidebar.sidebar-main strong").addEventListener("click",
+            (e)=>{ 
+                console.log("Click By");
+                document.querySelector('#narrow-by-list').classList.toggle("visible")}
+            );
+    </script>
 <?php endif; ?>

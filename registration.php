@@ -6,4 +6,4 @@
 
 use Magento\Framework\Component\ComponentRegistrar;
 
-ComponentRegistrar::register(ComponentRegistrar::THEME, 'frontend/Magento/react-luma', __DIR__);
+ComponentRegistrar::register(ComponentRegistrar::THEME, 'frontend/Genaker/react-luma', __DIR__);

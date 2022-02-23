@@ -10,8 +10,17 @@
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
 $staticUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_STATIC); // to get Base Url without index.php
-
+$request = $objectManager->get('\Magento\Framework\App\Request\Http');
+$control = $request->getFullActionName();
 ?>
+
+<link rel="preload" as="font" crossorigin="anonymous"
+    href="/static/frontend/Genaker/react-luma/en_US/fonts/Luma-Icons.woff2" />
+
+
+<link rel="preload" as="icon" crossorigin="anonymous"
+    href="<?= $staticUrl ?>frontend/Genaker/react-luma/en_US/Magento_Theme/favicon.ico" />
+    
 <?php $criticalCssViewModel = $block->getData('criticalCssViewModel'); ?>
 
 <style type="text/css" data-type="criticalCss">
@@ -20,27 +29,27 @@ $staticUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterfa
 $criticalCssViewModel->getCriticalCssData() ?>
 </style>
 
-<link rel="preload" as="font" crossorigin="anonymous"
-    href="/static/frontend/Magento/luma/en_US/fonts/Luma-Icons.woff2" />
-
 <?php
 if (true) {
 ?>
 <script no-move="text/x-magento-template">
-if (window.innerWidth < 768) {
+if (!window.matchMedia('(min-width: 768px)').matches) {
+    console.log("Mobile");
     <?php //const st = `<?= $criticalCssViewModel->getCriticalCssData() `;
     //const style = document.createElement('style');
-   // style.innerHTML = st;
+    // style.innerHTML = st;
     //document.head.appendChild(style); ?>
+
 } else {
+    console.log("Desktop");
     var cssonload = () => {
         setTimeout(() => {
             document.getElementsByTagName('body')[0].style.display = 'block';
             console.log("CSS loaded")
         }, 50);
     };
-    const st =
-        "<link rel=\"stylesheet\" media=\"all\" href=\"<?= $staticUrl ?>styles-m.css\"><link rel=\"stylesheet\" media=\"screen and (min-width: 768px)\" onload=\"cssonload()\" href=\"<?= $staticUrl ?>frontend/Magento/luma/en_US/css/styles-l.css\">";
+    const st ="<link rel=\"stylesheet\" media=\"all\" href=\"<?= $staticUrl ?>frontend/Genaker/react-luma/en_US/css/styles-m.css\">" +
+    "<link rel=\"stylesheet\" media=\"screen and (min-width: 768px)\" onload=\"cssonload()\" href=\"<?= $staticUrl ?>frontend/Genaker/react-luma/en_US/css/styles-l.css\">";
     document.head.insertAdjacentHTML('beforeend', st);
     const body = "<style> body{display:none} </style>";
     document.head.insertAdjacentHTML('beforeend', body);
@@ -53,6 +62,37 @@ if (window.innerWidth < 768) {
 <style type="text/css">
 <?php //echo $criticalCssViewModel->getCriticalCssData() ?>
 //Critical CSS
+
+    //Fixes 
+
+    .swatch-attribute.swatch-layered {
+        display: inline-block !important;
+    }
+
+    .swatch-options {
+        display: inline-block;
+    }
+    
+    small.copyright {
+        position: absolute;
+        width: 100%;
+        left: 0;
+    }
+//mobile filter
+@media only screen and (max-width: 768px) {
+    .sidebar.sidebar-main {
+        display: block !important;
+    }
+}
+
+.visible{
+    display: block !important;
+}
+
+.hidden{
+    display: none !important;
+}
+
 @media only screen and (max-width: 768px) {
 
     .logo img {
@@ -65,7 +105,6 @@ if (window.innerWidth < 768) {
         order: -1;
     }
 
-    .sidebar.sidebar-main,
     .sidebar.sidebar-additional {
         display: none;
     }
@@ -90,7 +129,9 @@ if (window.innerWidth < 768) {
         margin-bottom: 0px !important;
     }
 
-    <?php //For category page ?>
+    <?php //For category page 
+    if ($control === 'catalog_product_view') {
+    ?>
 
     .sorter-action:before {
         -webkit-font-smoothing: antialiased;
@@ -121,88 +162,6 @@ if (window.innerWidth < 768) {
     .modes {
         display: none;
     }
-
-    <?php //Home page ?>
-
-    .column.main .block:last-child {
-        margin-bottom: 0;
-    }
-
-    .block-static-block.widget {
-        margin-bottom: 20px;
-    }
-
-    .widget {
-        clear: both;
-    }
-
-    .blocks-promo {
-        margin-left: -15px;
-        margin-right: -15px;
-    }
-
-    .gear-main .content,
-    .home-main .content,
-    .new-main .content,
-    .sale-main .content,
-    .training-main .content {
-        top: 20px;
-        right: 0;
-        width: 65%;
-    }
-
-    .block-promo .content {
-        padding: 15px 20px 20px;
-    }
-
-    .widget .block-promo img {
-        min-height: 468px !important;
-        max-width: none;
-    }
-
-    .block-promo-wrapper.block-promo-hp {
-        display: none;
-    }
-
-    .gear-main .content,
-    .home-main .content,
-    .new-main .content,
-    .sale-main .content,
-    .training-main .content {
-        top: 20px;
-        right: 0;
-        width: 65%;
-    }
-
-    .block-promo .content {
-        padding: 15px 20px 20px;
-    }
-
-    .collection-eco .content,
-    .collection-performance .content,
-    .gear-equipment .content,
-    .gear-main .content,
-    .home-eco .content,
-    .home-main .content,
-    .home-performance .content,
-    .new-eco .content,
-    .new-main .content,
-    .sale-main .content,
-    .sale-women .content,
-    .training-erin .content,
-    .training-main .content {
-        background-color: rgba(255, 255, 255, .9);
-    }
-
-    .block-promo .content {
-        display: block;
-        box-sizing: border-box;
-        position: absolute;
-        z-index: 1;
-        overflow: hidden;
-        padding: 25px 35px 35px;
-    }
-
 }
 
 <?php // crotacal CSS for category page  ?>
@@ -559,4 +518,7 @@ if (window.innerWidth < 768) {
 .block-compare .actions-toolbar {
     margin: 17px 0 0
 }
+<?php } 
+?>
+
 </style>

@@ -46,6 +46,7 @@ $_menuHtml = $block->getHtml('level-top', 'submenu', $columnsLimit);
 </style>
 
 <script>
+document.addEventListener("DOMContentLoaded", () => {
 document.querySelector("#maincontent").addEventListener('click', (e) => {
     const nav = document.querySelector('.sections.nav-sections');
     if (nav.style.display === "block") {
@@ -55,7 +56,7 @@ document.querySelector("#maincontent").addEventListener('click', (e) => {
 
 document.isMobile = false;
 const windowSize = () => {
-    if(window.innerWidth < 768){
+    if(window.matchMedia('(min-width: 768px)').matches){
         const nav = document.querySelector('.sections.nav-sections');
         nav.classList.add('mobile');
         document.isMobile = true;
@@ -130,6 +131,7 @@ document.querySelectorAll(".level0.category-item.level-top.parent").forEach((e) 
 
             return false;
         })
+})
 </script>
 
 

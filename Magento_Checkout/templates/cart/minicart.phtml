@@ -76,6 +76,8 @@ script;
             });
     }
 
+    document.addEventListener("DOMContentLoaded", () => {
+
     fetch(BASE_URL + 'customer/section/load/?section=', {
             method: 'GET',
             headers: {
@@ -85,31 +87,33 @@ script;
         })
         .then(async (res) => {
             res = await res.json();
-            console.log(res)
+            
+            //console.log(res)
             if (res.hasOwnProperty('cart') && res.cart.hasOwnProperty('html')){
                 const cart = document.querySelector('#minicart-content-wrapper');
                 cart.innerHTML = '';
                 cart.insertAdjacentHTML("afterbegin", res.cart.html);
                 
-                const cartQTY = document.querySelector('.counter.qty');
-                const cartQTYNumber = document.querySelector('span.counter-number');
+                const cartQTY = document.querySelector('.minicart-wrapper .counter.qty');
+                const cartQTYNumber = document.querySelector('.minicart-wrapper span.counter-number');
+                //I like when it shows 0
                 if (true || res.cart.summary_count > 0) {
                     cartQTY.classList.remove('empty');
                     cartQTYNumber.innerHTML= res.cart.summary_count;
                     console.log(res.cart.summary_count)
                 }
-                const showCart = document.querySelector('.action.showcart');
+                const cartShow = document.querySelector('.minicart-wrapper .action.showcart');
                 const closeCart = document.querySelector('#btn-minicart-close');
-                showCart.removeEventListener('mouseenter', ShowCart);
-                showCart.removeEventListener('mouseleave', ShowCart);
-                showCart.addEventListener('click', (e) => {e.preventDefault(); ShowCart()});
+                cartShow.removeEventListener('mouseenter', ShowCart);
+                cartShow.removeEventListener('mouseleave', ShowCart);
+                cartShow.addEventListener('click', (e) => {e.preventDefault(); ShowCart()});
                 if(closeCart !== null)
                 closeCart.addEventListener('click', HideCart);
 
             } else {
-                const showCart =document.querySelector('.action.showcart');
-                ShowCart.addEventListener('mouseenter', ShowCart);
-                ShowCart.addEventListener('mouseleave', HideCart);
+                const cartShow = document.querySelector('.action.showcart');
+                cartShow.addEventListener('mouseenter', ShowCart);
+                cartShow.addEventListener('mouseleave', HideCart);
             }
         })
         .then(formKey());
@@ -120,6 +124,7 @@ script;
     function HideCart(){
         document.querySelector('.block.block-minicart').style.display = 'none'
     }
+    });
 
 
     </script>
