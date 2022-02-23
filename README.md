@@ -11,6 +11,9 @@ We made big improvements in the LCP metrics on Mobile. Now this theme even faste
 
 ![image](https://user-images.githubusercontent.com/9213670/153733227-56f839b8-42bc-4b4c-986d-c98ea916cbca.png)
 
+You can check Google Page Speed results here:
+
+https://pagespeed.web.dev/report?url=https%3A%2F%2Freact-luma.merche.io%2Ffusion-backpack.html
 
 # Installation 
 ```
