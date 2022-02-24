@@ -9,6 +9,7 @@
     <head>
         <!-- Remove Adobes garbage gallery -->
         <remove src="mage/gallery/gallery.css"/>
+        <remove src="mage/calendar.css"/>
     </head>
     <body>
         <move element="page.main.title" destination="product.info.main" before="-"/>
