@@ -48,8 +48,8 @@ https://paypal.me/magentasoftware?country.x=US&locale.x=en_US
 Magento React Theme uses Magento React integration extension (https://github.com/Genaker/reactmagento2/) as a dependency. Extension will be added automaticaly if to install via Composer.
 
 For the best performace You shuld use:
-* CSS optimiser tool: (not publicly available)
-* Improved Magento FPC: (not publicly available)
+* CSS optimiser tool: (not publicly available yet)
+* Improved Magento FPC: (not publicly available yet)
 * Magento Mictoservices: Laragento/Laragento, PyGento/Python3, NodeJento/NodeJS
 * Magento Opcache React GUI: https://github.com/Genaker/Magento2OPcacheGUI
 * PWA Magento Extension:https://github.com/Genaker/Magento2PWA
