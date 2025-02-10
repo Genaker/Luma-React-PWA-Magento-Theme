@@ -6,6 +6,9 @@ Blazing-Fast Default Magento Luma theme on ReactJS UI components PWA features wi
 
 Luma React is a Free Open Source Theme that aims to resolve performance issues by removing all the awful introduced by Adobe Magento 2-based themes and starting with a blank HTML. The thousands of bloated junk JavaScript file libraries were replaced with no JS framework known as Vanilla JS, but you can add any JS framework additionally for your needs ReactJS, Vue.Js, Alpine.js. In addition, all CSS is optimized and not replaced. So you can basically convert your existing Magento junk theme to a fast theme.
 
+<img width="781" alt="image" src="https://github.com/user-attachments/assets/d38f866b-3da4-4468-8acf-327bead7ec5f" />
+
+
 # Performace improvements
 After the Consultation with Erwin Hofman 
 
