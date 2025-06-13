@@ -1,4 +1,5 @@
 # Luma-React-PWA-Magento-Theme
+# NOTE: all developemt moved to reactmagento2(https://github.com/Genaker/reactmagento2/) module. Now to optimise your custom Theme you need just install module without theme changes
 
 <img src="https://raw.githubusercontent.com/Genaker/Luma-React-PWA-Magento-Theme/master/web/images/logo.jpeg" alt="Magento React Theme"/>
 
